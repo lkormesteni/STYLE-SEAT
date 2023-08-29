@@ -32,19 +32,19 @@ const getAllSalons = function(req,res) {
         res.json(results)
     })
 }
+const addClient = function(req, res) {
+  const query = "INSERT INTO client (fullName, email, password, address) values (?,?,?,?)";
+  const { fullName, email, password, address } = req.body;
 
-const addClient = function(req,res) {
-    const query = "INSERT INTO client (fullName, email, password, address) values (?,?,?,?)"
-    const {fullName, email, password, address} = req.body
+  connection.query(query, [fullName, email, password, address], (err, results) => {
+    if (err) {
+      console.log("Error inserting data into the database:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
 
-    connection.query(query, [fullName, email, password, address], (err,results) => {
-        if(err){
-            console.log("Error inserting data into the database:", err)
-            return res.status(500).json({error :"Internal server error"})
-        }
-        res.json(results)
-    })
-}
+    res.json({ success: true, message: "User registered successfully" });
+  });
+};
 
 const addSalon = function(req,res) {
     const query = "INSERT INTO salon (salonName, address, image, phoneNumber) values (?,?,?,?)"
