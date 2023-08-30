@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login({ changeToSignUp }) {
+function Login({ changeToSignUp , changeToHome }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,7 +14,8 @@ function Login({ changeToSignUp }) {
       const foundUser = data.find(user => user.email === email && user.password === password);
 
       if (foundUser) {
-        alert('Login successful!');
+        changeToHome()
+
       } else {
         alert('Login failed. Please check your credentials.');
       }

@@ -2,14 +2,17 @@ import './App.css';
 import React, {useState} from 'react'
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
-
+import Home from './components/Home.jsx';
 
 function App() {
   const [view, setView] = useState('Login')
   
-  
+  const changeToHome = () => {
+    setView('Home')
+  }
+
   const changeToSignUp = () => {
-    setView('Signup')
+    setView('SignUp')
   }
 
   const changeToLogin = () => {
@@ -17,12 +20,13 @@ function App() {
   }
 
   return (
+
     <div className="App">
-      <div>
-        {view === 'Login' && <Login changeToSignUp ={changeToSignUp}/>}
-      </div>
-      
-      {view === 'Signup' &&  <SignUp changeToLogin={changeToLogin}/>}
+      {view === 'Login'  && <Login  changeToSignUp  ={changeToSignUp} changeToHome={changeToHome}/>} 
+      {view === 'SignUp' && <SignUp changeToLogin   ={changeToLogin}  changeToHome={changeToHome}/>}
+      {view === 'Home'   && <Home />}
+
+
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SignUp({ changeToLogin }) {
+function SignUp({ changeToLogin , changeToHome}) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +19,7 @@ function SignUp({ changeToLogin }) {
       console.log(data)
       if (data.success) {
         alert('Sign up successful!');
+        changeToHome()
       } else {
         alert('Sign up failed. Please try again.');
       }
