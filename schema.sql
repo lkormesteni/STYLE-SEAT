@@ -11,24 +11,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
--- -----------------------------------------------------
--- Schema styleseat
--- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8mb3 ;
 USE `mydb` ;
-
--- -----------------------------------------------------
--- Table `mydb`.`salon`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`salon` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `salonName` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(105) NOT NULL,
-  `image` VARCHAR(999) NOT NULL,
-  `phoneNumber` INT NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `mydb`.`client`
@@ -40,7 +24,66 @@ CREATE TABLE IF NOT EXISTS `mydb`.`client` (
   `password` VARCHAR(45) NOT NULL,
   `address` VARCHAR(105) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 14
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`salon`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`salon` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `salonName` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(105) NOT NULL,
+  `image` VARCHAR(999) NOT NULL,
+  `phoneNumber` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`services`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`services` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `service` VARCHAR(1000) NOT NULL,
+  `image` VARCHAR(1000) NOT NULL,
+  `price` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`shop`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`shop` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(500) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `price` INT NOT NULL,
+  `image` VARCHAR(1100) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`team`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`team` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fullname` VARCHAR(105) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `experience` INT NOT NULL,
+  `image` VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`id`, `fullname`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

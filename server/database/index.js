@@ -11,6 +11,8 @@ connection.connect((err) => {
     }
 })
 
+// clients functions
+
 const getAllClients = function(req,res) {
     const query = "SELECT * FROM client"
     connection.query (query, (err,results) => {
@@ -22,40 +24,16 @@ const getAllClients = function(req,res) {
     })
 }
 
-const getAllSalons = function(req,res) {
-    const query = "SELECT * FROM salon"
-    connection.query (query, (err,results) => {
-        if(err){
-            console.log("error fetching data from the database", err)
-            return res.status(500).json({error: "internal server error"})
-        }
-        res.json(results)
-    })
-}
-const addClient = function(req, res) {
-  const query = "INSERT INTO client (fullName, email, password, address) values (?,?,?,?)";
-  const { fullName, email, password, address } = req.body;
+const addClient = function(req,res) {
+    const query = "INSERT INTO client (fullName, email, password, address) values (?,?,?,?)"
+    const {fullName, email, password, address} = req.body
 
-  connection.query(query, [fullName, email, password, address], (err, results) => {
-    if (err) {
-      console.log("Error inserting data into the database:", err);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-
-    res.json({ success: true, message: "User registered successfully" });
-  });
-};
-
-const addSalon = function(req,res) {
-    const query = "INSERT INTO salon (salonName, address, image, phoneNumber) values (?,?,?,?)"
-    const {salonName, address, image, phoneNumber} = req.body
-
-    connection.query(query, [salonName, address, image, phoneNumber], (err,results) => {
+    connection.query(query, [fullName, email, password, address], (err,results) => {
         if(err){
             console.log("Error inserting data into the database:", err)
             return res.status(500).json({error :"Internal server error"})
         }
-        res.json(results)
+        res.json({ success: true, message: 'Client added successfully' });
     })
 }
 
@@ -74,6 +52,49 @@ const updateClient = function (req, res) {
     });
 };
 
+const deleteClient = function (req, res) {
+    const clientId = req.params.id
+    const query = "DELETE FROM client WHERE id=?"; 
+  
+    connection.query(query, [clientId], (err, results) => {
+      if (err) {
+          console.log("Error inserting data into the database:", err);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
+  
+      res.json(results);
+    });
+};
+
+// salons functions
+
+
+const getAllSalons = function(req,res) {
+    const query = "SELECT * FROM salon"
+    connection.query (query, (err,results) => {
+        if(err){
+            console.log("error fetching data from the database", err)
+            return res.status(500).json({error: "internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+
+const addSalon = function(req,res) {
+    const query = "INSERT INTO salon (salonName, address, image, phoneNumber) values (?,?,?,?)"
+    const {salonName, address, image, phoneNumber} = req.body
+
+    connection.query(query, [salonName, address, image, phoneNumber], (err,results) => {
+        if(err){
+            console.log("Error inserting data into the database:", err)
+            return res.status(500).json({error :"Internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+
 const updateSalon = function (req, res) {
     const salonId = req.params.id
     const {salonName, address, image, phoneNumber} = req.body;
@@ -89,19 +110,6 @@ const updateSalon = function (req, res) {
     });
 };
 
-const deleteClient = function (req, res) {
-    const clientId = req.params.id
-    const query = "DELETE FROM client WHERE id=?"; 
-  
-    connection.query(query, [clientId], (err, results) => {
-      if (err) {
-        console.log("Error inserting data into the database:", err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
-  
-      res.json(results);
-    });
-};
 
 const deleteSalon = function (req, res) {
     const salonId = req.params.id
@@ -117,13 +125,192 @@ const deleteSalon = function (req, res) {
     });
 };
 
+// service functions
+
+
+const getAllServices = function(req,res) {
+    const query = "SELECT * FROM services"
+    connection.query (query, (err,results) => {
+        if(err){
+            console.log("error fetching data from the database", err)
+            return res.status(500).json({error: "internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+const addService = function(req,res) {
+    const query = "INSERT INTO services (service, image, price) values (?,?,?)"
+    const {service, image, price} = req.body
+
+    connection.query(query, [service, image, price], (err,results) => {
+        if(err){
+            console.log("Error inserting data into the database:", err)
+            return res.status(500).json({error :"Internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+const updateService = function (req, res) {
+    const serviceId = req.params.id
+    const {service, image, price} = req.body;
+    const query = "UPDATE services SET service=?, image=?, price=? WHERE id=?"; 
+  
+    connection.query(query, [service, image, price, serviceId], (err, results) => {
+      if (err) {
+        console.log("Error inserting data into the database:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+    
+    res.json(results);
+});
+};
+
+const deleteService = function (req, res) {
+    const serviceId = req.params.id
+    const query = "DELETE FROM services WHERE id=?"; 
+  
+    connection.query(query, [serviceId], (err, results) => {
+      if (err) {
+        console.log("Error inserting data into the database:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+  
+      res.json(results);
+    });
+};
+
+// products functions
+
+
+const getAllProducts = function(req,res) {
+    const query = "SELECT * FROM shop"
+    connection.query (query, (err,results) => {
+        if(err){
+            console.log("error fetching data from the database", err)
+            return res.status(500).json({error: "internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+const addProduct = function(req,res) {
+    const query = "INSERT INTO shop (title, description, price, image) values (?,?,?,?)"
+    const {title, description, price, image} = req.body
+
+    connection.query(query, [title, description, price, image], (err,results) => {
+        if(err){
+            console.log("Error inserting data into the database:", err)
+            return res.status(500).json({error :"Internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+const updateProduct = function (req, res) {
+    const productId = req.params.id
+    const {title, description, price, image} = req.body;
+    const query = "UPDATE shop SET title=?, description=?, price=?, image=? WHERE id=?"; 
+  
+    connection.query(query, [title, description, price, image, productId], (err, results) => {
+      if (err) {
+        console.log("Error inserting data into the database:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+    
+    res.json(results);
+});
+};
+
+const deleteProduct = function (req, res) {
+    const productId = req.params.id
+    const query = "DELETE FROM shop WHERE id=?"; 
+  
+    connection.query(query, [productId], (err, results) => {
+      if (err) {
+        console.log("Error inserting data into the database:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+  
+      res.json(results);
+    });
+};
+
+// team functions
+
+const getAllTeam = function(req,res) {
+    const query = "SELECT * FROM team"
+    connection.query (query, (err,results) => {
+        if(err){
+            console.log("error fetching data from the database", err)
+            return res.status(500).json({error: "internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+const addTeam = function(req,res) {
+    const query = "INSERT INTO team (fullname, description, experience, image) values (?,?,?,?)"
+    const {fullname, description, experience, image} = req.body
+
+    connection.query(query, [fullname, description, experience, image], (err,results) => {
+        if(err){
+            console.log("Error inserting data into the database:", err)
+            return res.status(500).json({error :"Internal server error"})
+        }
+        res.json(results)
+    })
+}
+
+const updateTeam = function (req, res) {
+    const teamId = req.params.id
+    const {fullname, description, experience, image} = req.body;
+    const query = "UPDATE team SET fullname=?, description=?, experience=?, image=? WHERE id=?"; 
+  
+    connection.query(query, [fullname, description, experience, image, teamId], (err, results) => {
+      if (err) {
+        console.log("Error inserting data into the database:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+    
+    res.json(results);
+});
+};
+
+const deleteTeam = function (req, res) {
+    const teamId = req.params.id
+    const query = "DELETE FROM team WHERE id=?"; 
+  
+    connection.query(query, [teamId], (err, results) => {
+      if (err) {
+        console.log("Error inserting data into the database:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+  
+      res.json(results);
+    });
+};
+
 module.exports = {
     getAllClients,
     getAllSalons,
+    getAllServices,
+    getAllProducts,
+    getAllTeam,
     addClient,
     addSalon,
+    addService,
+    addProduct,
+    addTeam,
     updateClient,
     updateSalon,
+    updateService,
+    updateProduct,
+    updateTeam,
     deleteClient,
-    deleteSalon
+    deleteSalon,
+    deleteService,
+    deleteProduct,
+    deleteTeam
 }

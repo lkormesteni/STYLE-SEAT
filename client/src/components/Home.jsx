@@ -4,7 +4,6 @@ import Hero from './Hero.jsx'
 import Salons from './Salons.jsx'
 
 
-
 const Home = () => {
   return (
     <div>

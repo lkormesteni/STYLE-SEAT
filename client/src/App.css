@@ -183,3 +183,74 @@ body {
 
 /* Additional styling for responsiveness and other effects */
 
+.salon-cards {
+  background-image: url('https://www.newshub.co.nz/home/new-zealand/2017/09/police-crackdown-on-drinks-at-hairdressers/_jcr_content/par/brightcovevideo/image.dynimg.full.q75.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Set the container height to cover the full viewport height */
+  padding: 50px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px; /* Add some space between the cards and the top */
+}
+
+.salon-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  width: 300px;
+}
+
+.salon-card:hover {
+  transform: translateY(-5px);
+}
+
+.salon-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.salon-info {
+  padding: 16px;
+}
+
+.salon-name {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.salon-description {
+  margin: 8px 0;
+  color: #777;
+}
+
+.services {
+  margin-top: 16px;
+}
+
+.services h4 {
+  margin: 0 0 8px;
+}
+
+.services ul {
+  list-style: none;
+  padding: 0;
+}
+
+.services li {
+  margin-bottom: 4px;
+  font-size: 14px;
+}
